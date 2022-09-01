@@ -1,4 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:steven_flutter/FirstPage.dart';
+import 'package:steven_flutter/util/device_utils.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -47,11 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: const Icon(FluentIcons.edit_note),
                   title: const Text("Sample Page 4"))
             ]),
-        content: NavigationBody(index: index, children: const [
-          Text("1"),
-          Text("2"),
-          Text("3"),
-          Text("4"),
+        content: NavigationBody(index: index, children: [
+          Device.isMobile ? const Text('1') : const FirstPage(),
+          const Text("2"),
+          const Text("3"),
+          const Text("4"),
         ]));
   }
 }
