@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' as material;
+import 'package:flutter/services.dart';
 import 'package:getwidget/colors/gf_color.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
@@ -18,6 +19,7 @@ import 'package:getwidget/shape/gf_button_shape.dart';
 import 'package:getwidget/size/gf_size.dart';
 import 'package:getwidget/types/gf_button_type.dart';
 import 'package:getwidget/types/gf_loader_type.dart';
+import 'package:steven_flutter/util/device_utils.dart';
 import 'package:steven_flutter/util/image_utils.dart';
 
 class FirstPage extends StatefulWidget {
@@ -36,6 +38,27 @@ class _FirstPageState extends State<FirstPage>
   var isChecked = false;
   late material.TabController tabController;
   bool _checked = false;
+
+  static const channel = MethodChannel("com.jk/battery");
+  String value = '';
+
+Future getData()async{
+    String batteryLevel;
+  if(!Device.isAndroid) {
+    batteryLevel = "no support get battery level";
+  } else {
+    try{
+      //从原生种获取当前channel中的方法值
+      final int result = await channel.invokeMethod("getBatteryInfo");
+      batteryLevel = 'Battery level at $result % .';
+    }on PlatformException catch(e){
+      batteryLevel = "Failed to get battery level: '${e.message}'.";
+    }
+  }
+    setState(() {
+      value = batteryLevel;
+    });
+  }
 
   @override
   void initState() {
@@ -78,14 +101,14 @@ class _FirstPageState extends State<FirstPage>
                             onPressed: () {},
                             type: GFButtonType.transparent,
                           ),
-                          title: const Text("GF Appbar"),
+                          title: Text(value),
                           actions: <Widget>[
                             GFIconButton(
                               icon: const Icon(
                                 material.Icons.more_horiz,
                                 color: material.Colors.white,
                               ),
-                              onPressed: () {},
+                              onPressed: () => getData(),
                               type: GFButtonType.transparent,
                             ),
                           ],
