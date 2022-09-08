@@ -141,10 +141,12 @@ class _FirstPageState extends State<FirstPage>
                       const Color((0xFFFFFFFF)).withOpacity(0.5),
                     ],
                   ),
-                  child: Image.file(
-                    File(path),
-                    fit: BoxFit.contain,
-                  ),
+                  child: !Device.isWeb
+                      ? Image.file(
+                          File(path),
+                          fit: BoxFit.contain,
+                        )
+                      : const LoadImage("earth"),
                 ),
               ],
             ),

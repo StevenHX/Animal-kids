@@ -1,6 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:xlotus/FirstPage.dart';
-import 'package:xlotus/util/device_utils.dart';
+import 'package:xlotus/NewsPage.dart';
 import 'package:xlotus/util/image_utils.dart';
 import 'package:xlotus/widgets/load_image.dart';
 
@@ -20,15 +20,15 @@ class _MyHomePageState extends State<MyHomePage> {
         pane: NavigationPane(
             selected: index,
             onChanged: (i) => setState(() => index = i),
-            displayMode: PaneDisplayMode.open,
+            displayMode: PaneDisplayMode.auto,
             size: const NavigationPaneSize(
-              openWidth: 160,
+              openWidth: 150,
             ),
             header: const LoadImage(
               'header',
               format: ImageFormat.jpg,
               fit: BoxFit.fill,
-              width: 160,
+              width: 150,
             ),
             items: [
               PaneItem(
@@ -45,11 +45,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: const Icon(FluentIcons.edit_note),
                   title: const Text("关于"))
             ]),
-        content: NavigationBody(index: index, children: [
-          Device.isMobile ? const Text('1') : const FirstPage(),
-          const Text("2"),
-          const Text("3"),
-          const Text("4"),
+        content: NavigationBody(index: index, children: const [
+          FirstPage(),
+          NewsPage(),
+          Text("3"),
+          Text("4"),
         ]));
   }
 }
