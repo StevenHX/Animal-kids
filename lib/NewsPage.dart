@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
-import 'package:getwidget/components/carousel/gf_carousel.dart';
 import 'package:getwidget/components/list_tile/gf_list_tile.dart';
 import 'package:getwidget/components/toast/gf_toast.dart';
-import 'package:glassmorphism/glassmorphism.dart';
-import 'package:xlotus/util/image_utils.dart';
 import 'package:xlotus/widgets/load_image.dart';
 
 class NewsPage extends StatefulWidget {
@@ -43,102 +40,90 @@ class _NewsPageState extends State<NewsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              expandedHeight: 280.0,
-              pinned: false,
-              backgroundColor: Colors.transparent,
-              flexibleSpace: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 0),
-                child: SizedBox(
-                    child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    const LoadImage(
-                      'header',
-                      format: ImageFormat.jpg,
-                      fit: BoxFit.fill,
-                      width: double.infinity,
-                      height: 280,
+    return Container(
+      constraints: BoxConstraints(
+          minWidth: 1200, maxWidth: MediaQuery.of(context).size.width),
+      padding: const EdgeInsets.all(0),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 2,
+            child: Scaffold(
+              body: ListView.separated(
+                  itemBuilder: (context, index) {
+                    //显示列表项
+                    return GestureDetector(
+                      onTap: () => GFToast.showToast(
+                        '${list[index]}GetFlutter is an open source library that comes with pre-build 1000+ UI components.',
+                        context,
+                      ),
+                      child: const GFListTile(
+                        avatar: GFAvatar(
+                          backgroundColor: Colors.transparent,
+                          child: LoadImage("earth"),
+                        ),
+                        titleText: '111',
+                        subTitleText:
+                            'Lorem ipsum dolor sit amet, consectetur adipiscing',
+                        icon: Icon(Icons.more_horiz),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) =>
+                      const Divider(height: .0),
+                  itemCount: list.length),
+            ),
+          ),
+          Expanded(
+            flex: 5,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    '这是一个标题',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
                     ),
-                    GlassmorphicContainer(
-                      width: double.infinity,
-                      height: 280,
-                      borderRadius: 0,
-                      blur: 8,
-                      alignment: Alignment.center,
-                      border: 1,
-                      linearGradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          const Color(0xFFffffff).withOpacity(0.1),
-                          const Color(0xFFFFFFFF).withOpacity(0.05),
-                        ],
-                        stops: const [
-                          0.1,
-                          1,
-                        ],
-                      ),
-                      borderGradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          const Color(0xFFffffff).withOpacity(0.5),
-                          const Color((0xFFFFFFFF)).withOpacity(0.5),
-                        ],
-                      ),
-                      child: GFCarousel(
-                        hasPagination: true,
-                        autoPlay: false,
-                        height: 265,
-                        autoPlayInterval: const Duration(seconds: 6),
-                        items: imageList.map(
-                          (url) {
-                            return Container(
-                              margin: const EdgeInsets.all(8.0),
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(5.0)),
-                                child: Image.network(url,
-                                    fit: BoxFit.cover, width: 1000.0),
-                              ),
-                            );
-                          },
-                        ).toList(),
-                      ),
-                    ),
-                  ],
-                )),
+                  ),
+                  Container(
+                    width: 200,
+                    height: 300,
+                    color: Colors.grey.shade800,
+                  ),
+                  Container(
+                    width: 200,
+                    height: 300,
+                    color: Colors.grey.shade700,
+                  ),
+                  Container(
+                    width: 200,
+                    height: 300,
+                    color: Colors.grey.shade600,
+                  ),
+                  Container(
+                    width: 200,
+                    height: 300,
+                    color: Colors.grey.shade500,
+                  ),
+                  Container(
+                    width: 200,
+                    height: 300,
+                    color: Colors.grey.shade400,
+                  ),
+                  Container(
+                    width: 200,
+                    height: 300,
+                    color: Colors.grey.shade300,
+                  ),
+                ],
               ),
             ),
-          ];
-        },
-        body: Scaffold(
-          body: ListView.separated(
-              itemBuilder: (context, index) {
-                //显示列表项
-                return GestureDetector(
-                  onTap: () => GFToast.showToast(
-                    '${list[index]}GetFlutter is an open source library that comes with pre-build 1000+ UI components.',
-                    context,
-                  ),
-                  child: const GFListTile(
-                    avatar: GFAvatar(
-                      backgroundColor: Colors.transparent,
-                      child: LoadImage("earth"),
-                    ),
-                    titleText: '111',
-                    subTitleText:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing',
-                    icon: Icon(Icons.more_horiz),
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) => const Divider(height: .0),
-              itemCount: list.length),
-        ));
+          )
+        ],
+      ),
+    );
   }
 }

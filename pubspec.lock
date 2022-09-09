@@ -252,6 +252,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.5"
+  menu_base:
+    dependency: transitive
+    description:
+      name: menu_base
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.1"
   meta:
     dependency: transitive
     description:
@@ -350,6 +357,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.3.0"
+  shortid:
+    dependency: transitive
+    description:
+      name: shortid
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.2"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -397,6 +411,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.4.12"
+  tray_manager:
+    dependency: "direct main"
+    description:
+      name: tray_manager
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.0"
   typed_data:
     dependency: transitive
     description:
